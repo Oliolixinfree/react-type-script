@@ -5,21 +5,15 @@ import TodoItem from './components/TodoItem';
 import { Todo } from './types';
 
 function App() {
-  const [text, setText] = useState('');
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setText(event.target.value);
-  };
-
-  const addTodo = () => {
+  const addTodo = (text: string) => {
     const newTodo: Todo = {
       id: new Date().toString(),
       title: text,
       completed: false,
     };
     setTodos([newTodo, ...todos]);
-    setText('');
   };
 
   useEffect(() => {
@@ -32,7 +26,7 @@ function App() {
 
   return (
     <div className="App">
-      <NewTodoForms value={text} onChange={handleInput} handleClick={addTodo} />
+      <NewTodoForms handleClick={addTodo} />
       <TodoItem id="1" title="Title" completed={false} style={{ border: '1px solid black' }} />
     </div>
   );
